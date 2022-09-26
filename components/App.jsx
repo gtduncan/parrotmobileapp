@@ -18,9 +18,10 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [signedIn, setSignedIn] = useState(false)
   const [user, setUser] = useState({})
+  const [inLesson, setInLesson] = useState(-1)
 
   useEffect(()=>{
-    axios.get('https://62ce-71-190-177-64.ngrok.io/users/1')
+    axios.get('https://477f-71-190-177-64.ngrok.io/users/1')
       .then(res => {
         console.log(res.data)
         setUser(res.data)
@@ -34,25 +35,30 @@ export default function App() {
   };
 
   const whichPages = () => {
-    if(signedIn === false) {
-      return (
-         <NavigationContainer>
-          <Stack.Navigator>
-              <Stack.Screen name="Welcome">
-              {(props) => <LandingPage {...props} stylingColors={stylingColors}/>}
-              </Stack.Screen>
-              <Stack.Screen name="Sign-in">
-              {(props) => <SigninPage {...props} setSignedIn={setSignedIn} stylingColors={stylingColors}/>}
-              </Stack.Screen>
-              <Stack.Screen name="Home">
-              {(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
-              </Stack.Screen>
-          </Stack.Navigator>
-      </NavigationContainer>)
+    if(inLesson === false) {
+      if(signedIn === false) {
+        return (
+           <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Welcome">
+                {(props) => <LandingPage {...props} stylingColors={stylingColors}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Sign-in">
+                {(props) => <SigninPage {...props} setSignedIn={setSignedIn} stylingColors={stylingColors}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Home">
+                {(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
+                </Stack.Screen>
+            </Stack.Navigator>
+        </NavigationContainer>)
+      }
+      if(signedIn === true)
+      {
+        return <AppNavigator setInLesson={setInLesson} user={user}/>
+      }
     }
-    if(signedIn === true)
-    {
-      return <AppNavigator user={user}/>
+    if(inLesson !== -1) {
+      return <LessonPage/>
     }
   }
   return (
