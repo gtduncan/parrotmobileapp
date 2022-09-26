@@ -1,17 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Input, Button, Card, Text, CheckBox } from '@ui-kitten/components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SigninPage = ({stylingColors, navigation}) => {
+const SigninPage = ({navigation, stylingColors, signedIn, setSignedIn}) => {
 
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = useState(false);
+    const [values, setValues] = useState({})
+
+    const signIn = () => {
+        navigation.navigate('Home');
+        console.log('clicked')
+        setSignedIn(true); 
+    }
 
     const styles = StyleSheet.create({
         container: {
           flex: 1,
-          paddingTop: 150,
+          paddingTop: 130,
           paddingLeft: 20,
           paddingRight: 20,
           flexDirection: "column",
@@ -30,11 +38,11 @@ const SigninPage = ({stylingColors, navigation}) => {
             paddingBottom: 30
         },
         buttonContainer: {
-            flex: 12
+            flex: 10
         }
     })
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
         <View style={styles.greetingContainer}>
             <Text style={styles.greetingHeader} category='h3'>Welcome back!</Text>
             <Text style={styles.greetingSub}  category='s1'>Don't have an account? Create one</Text>
@@ -45,9 +53,9 @@ const SigninPage = ({stylingColors, navigation}) => {
            <CheckBox checked={checked} style={styles.fields}onChange={()=> setChecked(!checked)}>Remember Me</CheckBox>
         </View>
         <View style={styles.buttonContainer}>
-            <Button onPress={() => navigation.navigate('Home')}>Sign In</Button>
+            <Button onPress={signIn}>Sign In</Button>
         </View>
-        </View>
+        </SafeAreaView>
         )
 }
 

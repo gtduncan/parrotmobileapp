@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { Button, Card, Text } from '@ui-kitten/components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const LandingPage = ({stylingColors, navigation}) => {
+const landingPage = ({navigation, stylingColors}) => {
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -55,9 +56,9 @@ const LandingPage = ({stylingColors, navigation}) => {
   });
 
     return(
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
     <View style={styles.parrotContainer}>
-        <Image onPress = {() => {alert('Shot in the face');}}style={styles.parrotImage} source={require('../assets/ParrotIcon.png')}/>
+        <Image style={styles.parrotImage} source={require('../assets/ParrotIcon.png')}/>
     </View>
     <View style={styles.greetingContainer}>
         <Text style={styles.greetingHeader} category='h3'>Welcome to Parrot!</Text>
@@ -67,10 +68,8 @@ const LandingPage = ({stylingColors, navigation}) => {
       <Button style={styles.buttons} onPress={() => navigation.navigate('Sign-in')}>Sign In</Button>
       <Button style={styles.buttons} appearance='outline'>Create an Account</Button>
     </View>
-    </View>
+    </SafeAreaView>
     )
-  }
-  
+}
 
-  
-export default LandingPage
+export default landingPage
