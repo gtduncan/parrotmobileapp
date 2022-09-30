@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomePageLessonCard from './HomePageLessonCard'
 import axios from 'axios';
 
 const HomePage = ({user, navigation, route}) => {
@@ -46,8 +47,22 @@ const HomePage = ({user, navigation, route}) => {
         },
         pointText: {
           paddingLeft: 5
+        },
+        continueText: {
+          marginTop: 20,
+          marginLeft: 38
         }
     })
+
+    const renderInProgress = () => {
+      const lessons = user.lessons
+      lessons.map((lesson) => {
+        if(lesson.current_stage < 10 && lesson.current_stage > 0) {
+          console.log(lesson.lesson_name, lesson.current_stage)
+          return(<HomePageLessonCard lesson_name={lesson.lesson_name}/>)
+        }
+      })
+    }
 
   return(
     <SafeAreaView style={styles.container}>
@@ -62,6 +77,12 @@ const HomePage = ({user, navigation, route}) => {
         <Text style={styles.pointText} category='s1'>{`${user.points}`}</Text>
         </View>
         </View>
+      <View>
+        <Text category='s1' style={styles.continueText} appearance='hint'>Continue Learning</Text>
+      </View>
+      <View>
+        {renderInProgress()}
+      </View>
     </SafeAreaView>
   )
   }

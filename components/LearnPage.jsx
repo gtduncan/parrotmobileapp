@@ -6,7 +6,8 @@ import { StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import LessonCard from './LessonCard';
 import axios from 'axios';
 
-const LearnPage = ({user, setInLesson, lessons}) => {
+const LearnPage = ({user, setUser, setInLesson, lessons}) => {
+
 
       const styles = StyleSheet.create({
         container: {
@@ -41,7 +42,7 @@ const LearnPage = ({user, setInLesson, lessons}) => {
                         lesson_description={lesson.lesson_description}
                         language={lesson.language}
                         image_url={lesson.image_url}
-                        currentStage={lesson.currentStage}
+                        current_stage={lesson.current_stage}
                         />
                     )
                 })}

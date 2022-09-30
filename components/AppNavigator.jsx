@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BottomNavigation, Icon, BottomNavigationTab, Layout, Text } from '@ui-kitten/components';
+import { BottomNavigation, Icon, Button, BottomNavigationTab, Layout, Text } from '@ui-kitten/components';
 import HomePage from './HomePage';
 import SigninPage from './SigninPage';
 import LearnPage from './LearnPage';
 import ShopPage from './ShopPage';
 import ProfilePage from './ProfilePage';
+import CoinHeader from './CoinHeader';
 
 const {Navigator, Screen } = createBottomTabNavigator();
 
@@ -42,13 +43,15 @@ const BottomTabBar = ({navigation, state}) => (
     </BottomNavigation>
 )
 
-const AppNavigator = ({setInLesson, user}) => {
+const AppNavigator = ({setInLesson, setUser, user}) => {
 
     const TabNavigator = ({route}) => (
     <Navigator initialRouteName={'Home'} tabBar={props => <BottomTabBar {...props} />}>
-      <Screen name='Home'>{(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
+      <Screen name='Home'  options={{
+            headerRight: (props) => <CoinHeader {...props}/>,
+          }}>{(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
 </Screen>
-      <Screen name='Learn'>{(props) => <LearnPage {...props} user={user} lessons={user.lessons} setInLesson={setInLesson} stylingColors={stylingColors}/>}</Screen>
+      <Screen name='Learn'>{(props) => <LearnPage {...props} user={user} setUser={setUser} lessons={user.lessons} setInLesson={setInLesson} stylingColors={stylingColors}/>}</Screen>
       <Screen name='Shop' component={ShopPage}/>
       <Screen name='Profile' component={ProfilePage}/>
     </Navigator>
