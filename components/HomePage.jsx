@@ -6,12 +6,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePageLessonCard from './HomePageLessonCard'
 import axios from 'axios';
 
-const HomePage = ({user, navigation, route}) => {
+const HomePage = ({setInLesson, user, navigation, route}) => {
   
     const styles = StyleSheet.create({
-        container: {
-            paddingTop: 50,
-            color: '#FFFFFF'
+        lessonContainer: {
+          marginTop: 20,
+          alignSelf: 'center',
+          flex: 1,
+          flexDirection: 'row'
         },
         profilePicture: {
           flex: 0.35,
@@ -51,21 +53,17 @@ const HomePage = ({user, navigation, route}) => {
         continueText: {
           marginTop: 20,
           marginLeft: 38
+        },
+        shopText: {
+          marginTop: 170,
+          marginLeft: 38
         }
     })
 
-    const renderInProgress = () => {
-      const lessons = user.lessons
-      lessons.map((lesson) => {
-        if(lesson.current_stage < 10 && lesson.current_stage > 0) {
-          console.log(lesson.lesson_name, lesson.current_stage)
-          return(<HomePageLessonCard lesson_name={lesson.lesson_name}/>)
-        }
-      })
-    }
+  const lessons = user.lessons
 
   return(
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <View style={styles.welcomeContainer}>
         <Image style={styles.profilePicture} source={require('../assets/DefaultProfile.png')}/>
         <View style={styles.userContainer}>
@@ -80,8 +78,16 @@ const HomePage = ({user, navigation, route}) => {
       <View>
         <Text category='s1' style={styles.continueText} appearance='hint'>Continue Learning</Text>
       </View>
+      <View style={styles.lessonContainer}>
+        {lessons?.map((lesson) => {
+        if(lesson.current_stage < 10 && lesson.current_stage > 0) {
+          console.log(lesson.lesson_name, lesson.current_stage, lesson.id)
+          return(<HomePageLessonCard key={lesson.id} setInLesson={setInLesson} id={lesson.id} current_stage={lesson.current_stage} lesson_name={lesson.lesson_name}/>)
+        }
+      })}
+      </View>
       <View>
-        {renderInProgress()}
+        <Text category='s1' style={styles.shopText} appearance='hint'>Your Parrots</Text>
       </View>
     </SafeAreaView>
   )

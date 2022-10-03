@@ -8,7 +8,6 @@ import SigninPage from './SigninPage';
 import HomePage from './HomePage';
 import AppNavigator from './AppNavigator';
 import LessonPage from './LessonPage';
-import CoinHeader from './CoinHeader';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as theme } from '../custom-theme.json'; 
@@ -26,7 +25,7 @@ export default function App({}) {
   const [inLesson, setInLesson] = useState('')
 
   useEffect(()=>{
-    axios.get('https://371e-2603-7000-483f-b6f4-2c74-e63a-f3b7-c4eb.ngrok.io/users/1')
+    axios.get('https://b0ea-71-190-177-64.ngrok.io/users/1')
       .then(res => {
         console.log(res.data)
         setUser(res.data)
@@ -53,10 +52,8 @@ export default function App({}) {
                 <Stack1.Screen name="Sign-in">
                 {(props) => <SigninPage {...props} setSignedIn={setSignedIn} stylingColors={stylingColors}/>}
                 </Stack1.Screen>
-                <Stack1.Screen name="Home"  options={{
-            headerRight: <CoinHeader/>
-          }}>
-                {(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
+                <Stack1.Screen name="Home">
+                {(props) => <HomePage {...props} user={user} setInLesson={setInLesson} stylingColors={stylingColors}/>}
                 </Stack1.Screen>
             </Stack1.Navigator>
         </NavigationContainer>)
@@ -71,7 +68,7 @@ export default function App({}) {
         <NavigationContainer>
           <Stack2.Navigator initialRouteName={"Lesson"}>
           <Stack2.Screen name="Home">
-                {(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
+                {(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
           </Stack2.Screen>
           <Stack2.Screen name={"Lesson"} options={({navigation, route}) => ({ title: `Lesson ${inLesson}`, headerLeft: (props) => {return(<HeaderBackButton onPress={() => setInLesson('')}/>)}})}>
               {(props) => <LessonPage {...props} setUser={setUser} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}

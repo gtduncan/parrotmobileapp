@@ -5,7 +5,6 @@ import * as Progress from 'react-native-progress'
 
 const LessonCard = ({id, lesson_name, setInLesson, lesson_description, item, language, current_stage}) => {
 
-    
     const styles = StyleSheet.create({
         container: {
             paddingTop: 50,

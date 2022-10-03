@@ -7,7 +7,6 @@ import SigninPage from './SigninPage';
 import LearnPage from './LearnPage';
 import ShopPage from './ShopPage';
 import ProfilePage from './ProfilePage';
-import CoinHeader from './CoinHeader';
 
 const {Navigator, Screen } = createBottomTabNavigator();
 
@@ -47,9 +46,7 @@ const AppNavigator = ({setInLesson, setUser, user}) => {
 
     const TabNavigator = ({route}) => (
     <Navigator initialRouteName={'Home'} tabBar={props => <BottomTabBar {...props} />}>
-      <Screen name='Home'  options={{
-            headerRight: (props) => <CoinHeader {...props}/>,
-          }}>{(props) => <HomePage {...props} user={user} stylingColors={stylingColors}/>}
+      <Screen name='Home'>{(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
 </Screen>
       <Screen name='Learn'>{(props) => <LearnPage {...props} user={user} setUser={setUser} lessons={user.lessons} setInLesson={setInLesson} stylingColors={stylingColors}/>}</Screen>
       <Screen name='Shop' component={ShopPage}/>
