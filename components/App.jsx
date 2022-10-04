@@ -8,6 +8,7 @@ import SigninPage from './SigninPage';
 import HomePage from './HomePage';
 import AppNavigator from './AppNavigator';
 import LessonPage from './LessonPage';
+import GiftPage from './GiftPage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as theme } from '../custom-theme.json'; 
@@ -23,6 +24,7 @@ export default function App({}) {
   const [signedIn, setSignedIn] = useState(false)
   const [user, setUser] = useState({})
   const [inLesson, setInLesson] = useState('')
+  const [inGift, setInGift] = useState('')
 
   useEffect(()=>{
     axios.get('https://b0ea-71-190-177-64.ngrok.io/users/1')
@@ -41,7 +43,7 @@ export default function App({}) {
 
 
   const whichPages = () => {
-    if(inLesson === '') {
+    if(inLesson === '' && inGift === '') {
       if(signedIn === false) {
         return (
            <NavigationContainer>
@@ -60,7 +62,7 @@ export default function App({}) {
       }
       if(signedIn === true)
       {
-        return <AppNavigator setUser={setUser} setInLesson={setInLesson} user={user}/>
+        return <AppNavigator setUser={setUser} setInLesson={setInLesson} setInGift={setInGift} user={user}/>
       }
     }
     if(inLesson !== '') {
@@ -72,6 +74,19 @@ export default function App({}) {
           </Stack2.Screen>
           <Stack2.Screen name={"Lesson"} options={({navigation, route}) => ({ title: `Lesson ${inLesson}`, headerLeft: (props) => {return(<HeaderBackButton onPress={() => setInLesson('')}/>)}})}>
               {(props) => <LessonPage {...props} setUser={setUser} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}
+          </Stack2.Screen>
+          </Stack2.Navigator>
+      </NavigationContainer>)
+    }
+    if(inGift !== '') {
+      return (
+        <NavigationContainer>
+          <Stack2.Navigator initialRouteName={"Gift"}>
+          <Stack2.Screen name="Home">
+                {(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
+          </Stack2.Screen>
+          <Stack2.Screen name={"Gift"} options={({navigation, route}) => ({ title: `Parrot`, headerLeft: (props) => {return(<HeaderBackButton onPress={() => setInGift('')}/>)}})}>
+              {(props) => <GiftPage {...props} setUser={setUser} inGift={inGift} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}
           </Stack2.Screen>
           </Stack2.Navigator>
       </NavigationContainer>)

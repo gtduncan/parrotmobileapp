@@ -35,11 +35,13 @@ const landingPage = ({navigation, stylingColors}) => {
       alignItems: 'center',
     },
     greetingHeader: {
+      fontFamily: 'Nunito',
       textAlign: 'center',
       paddingLeft: 60,
       paddingRight: 60
     },
     greetingSub: {
+      fontFamily: 'Nunito',
       textAlign: 'center',
       paddingTop: 20,
       paddingLeft: 50,
@@ -49,6 +51,7 @@ const landingPage = ({navigation, stylingColors}) => {
       flex: 3,
     },
     buttons: {
+      fontFamily: 'Nunito',
       marginBottom: 25,
       height:60,
       width:300

@@ -9,38 +9,62 @@ import axios from 'axios';
 const HomePage = ({setInLesson, user, navigation, route}) => {
   
     const styles = StyleSheet.create({
+      header: {
+        fontFamily: 'Nunito',
+        marginTop: 20,
+        marginLeft: 20
+      },
         lessonContainer: {
           marginTop: 20,
           alignSelf: 'center',
           flex: 1,
           flexDirection: 'row'
         },
+        profilePictureContainer: {
+          flexDirection: 'row',
+          flex: 5,
+          width: 60,
+          height: 60
+        },
         profilePicture: {
-          flex: 0.35,
           width: 60,
           height: 60
         },
         welcomeContainer: {
+          marginTop: 20,
+          height: 100,
+          alignSelf: 'center',
+        },
+        welcomeCard: {
+          height: 100,
+          width: 260,
+          flex:1,
           flexDirection: 'row',
-          paddingTop: 40,
-          paddingLeft: 40
         },
         welcomeText: {
-          flex: 1,
-          color: '#000000'
+          color: '#000000',
+          fontFamily: 'Nunito',
+          height: 20,
+          overflow:'visible',
+          alignSelf: 'center'
         },
         userContainer: {
-          height: 53,
-          paddingLeft: 10
+          flex: 25,
+          flexDirection: 'column',
+          height: 100,
+          width: 215
         },
         languageFlag: {
+          alignSelf: 'center',
+          marginRight: 50,
           height: 30,
           width: 30,
         },
         pointsDisplay: {
-          marginLeft: 120,
-          height: 20,
-          flex: 0.3,
+          fontFamily: 'Nunito',
+          alignSelf: 'flex-end',
+          flex: 1200,
+          height: 40,
           flexDirection: "row"
         },
         pointImage: {
@@ -48,15 +72,19 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
           width: 20,
         },
         pointText: {
-          paddingLeft: 5
+          fontFamily: 'Nunito',
+          paddingLeft: 5,
+          height: 20,
         },
         continueText: {
+          fontFamily: 'Nunito',
           marginTop: 20,
-          marginLeft: 38
+          marginLeft: 20
         },
         shopText: {
+          fontFamily: 'Nunito',
           marginTop: 170,
-          marginLeft: 38
+          marginLeft: 20
         }
     })
 
@@ -64,8 +92,12 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
 
   return(
     <SafeAreaView>
+      <Text style={styles.header} category='h3'>Home</Text>
       <View style={styles.welcomeContainer}>
+      <Card style={styles.welcomeCard}> 
+      <View style={styles.profilePictureContainer}>
         <Image style={styles.profilePicture} source={require('../assets/DefaultProfile.png')}/>
+      </View>
         <View style={styles.userContainer}>
         <Text category='s1' style={styles.welcomeText}>{`Hi, ${user.first_name}`}</Text>
         <Image style={styles.languageFlag} source={require('../assets/spain.png')}/>
@@ -74,14 +106,14 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
           <Image style={styles.pointImage} source={require('../assets/dollar.png')}/>
         <Text style={styles.pointText} category='s1'>{`${user.points}`}</Text>
         </View>
-        </View>
+      </Card>
+      </View>
       <View>
         <Text category='s1' style={styles.continueText} appearance='hint'>Continue Learning</Text>
       </View>
       <View style={styles.lessonContainer}>
         {lessons?.map((lesson) => {
         if(lesson.current_stage < 10 && lesson.current_stage > 0) {
-          console.log(lesson.lesson_name, lesson.current_stage, lesson.id)
           return(<HomePageLessonCard key={lesson.id} setInLesson={setInLesson} id={lesson.id} current_stage={lesson.current_stage} lesson_name={lesson.lesson_name}/>)
         }
       })}

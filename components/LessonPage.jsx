@@ -134,13 +134,15 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
         },
         header: {
             alignSelf: 'center',
-            paddingTop: '6%'
+            paddingTop: '6%',
+            fontFamily: 'Nunito',
         },
         pointImage: {
             height: 20,
             width: 20,
           },
         pointText: {
+            fontFamily: 'Nunito',
             paddingLeft: 5,
             height: 25,
             width: 60
@@ -155,16 +157,21 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
         },
         progressPercent: {
             alignSelf: 'center',
+            fontFamily: 'Nunito',
             marginTop: 8
         },
+        question: {
+            fontFamily: 'Nunito'
+        },
         answerHint: {
+            fontFamily: 'Nunito',
             padding: 10
         }
     })
 
     const Header = (props) => {
         const headerText = () => {
-            return(<Text category='h6' onPress={()=> setVisible(true)}>{currentStageData?.question}</Text>
+            return(<Text category='h6' style={styles.question} onPress={()=> setVisible(true)}>{currentStageData?.question}</Text>
             )
         }
         return(

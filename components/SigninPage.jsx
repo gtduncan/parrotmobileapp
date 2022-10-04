@@ -29,13 +29,15 @@ const SigninPage = ({navigation, stylingColors, signedIn, setSignedIn}) => {
             flex: 4
         },
         greetingHeader: {
+            fontFamily: 'Nunito',
             paddingBottom: 15
         },
         inputContainer: {
             flex: 9
         },
         fields: {
-            paddingBottom: 30
+            paddingBottom: 30,
+            fontFamily: 'Nunito'
         },
         buttonContainer: {
             flex: 10

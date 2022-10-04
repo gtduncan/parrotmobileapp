@@ -4,7 +4,7 @@ import { Button, Card, Icon, Text } from '@ui-kitten/components';
 import { StyleSheet, View, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import GiftCard from './GiftCard';
 
-const ShopPage = () => {
+const ShopPage = ({setInGift}) => {
 
     const styles = StyleSheet.create({
         container: {
@@ -12,13 +12,19 @@ const ShopPage = () => {
             color: '#FFFFFF'
         },
         header: {
+            fontFamily: 'Nunito',
             marginTop: 20,
             marginLeft: 20
         },
         subheader: {
+            fontFamily: 'Nunito',
             marginTop: 30,
             marginLeft: 20,
         }, 
+        giftContainer: {
+            flex: 1,
+            flexDirection: 'row'
+        },
         parrotContainer: {
             paddingTop: 150,
             flex: 4,
@@ -26,10 +32,11 @@ const ShopPage = () => {
             justifyContent: 'center',
           },
           parrotImage: {
-            width: 235,
-            height: 235,
+            width: 335,
+            height: 220,
           },
           purchaseText: {
+            fontFamily: 'Nunito',
             marginTop: 150,
             alignSelf: 'center'
           }
@@ -41,11 +48,14 @@ return(
         Shop
     </Text>
     <View style={styles.parrotContainer}>
-        <Image style={styles.parrotImage} source={require('../assets/ParrotIcon.png')}/>
+        <Image style={styles.parrotImage} source={require('../assets/shoppagegraphic.png')}/>
     </View>
     <Text category='h6' appearance='hint' style={styles.purchaseText}>Open a box to collect parrots!</Text>
     <Text style={styles.subheader} category='h6'>Buy</Text>
-    <GiftCard/>
+    <View style={styles.giftContainer}>
+    <GiftCard setInGift={setInGift} rarity={'Common'}/>
+    <GiftCard setInGift={setInGift} rarity={'Rare'}/>
+    </View>
     </SafeAreaView>
 )
 }

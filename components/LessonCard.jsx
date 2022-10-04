@@ -26,10 +26,12 @@ const LessonCard = ({id, lesson_name, setInLesson, lesson_description, item, lan
         },
         lessonDesc: {
             flex: 10,
+            fontFamily: 'Nunito',
             paddingTop: 10,
             color: '#818589'
         },
         lessonName: {
+            fontFamily: 'Nunito',
             marginTop: 10
         },
         lessonContainer: {
@@ -42,6 +44,7 @@ const LessonCard = ({id, lesson_name, setInLesson, lesson_description, item, lan
             marginTop: 20
         },
         progressPercent: {
+            fontFamily: 'Nunito',
             alignSelf: 'center',
             marginTop: 10
         }

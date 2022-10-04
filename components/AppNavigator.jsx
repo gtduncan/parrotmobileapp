@@ -42,14 +42,14 @@ const BottomTabBar = ({navigation, state}) => (
     </BottomNavigation>
 )
 
-const AppNavigator = ({setInLesson, setUser, user}) => {
+const AppNavigator = ({setInLesson, setInGift, setUser, user}) => {
 
     const TabNavigator = ({route}) => (
     <Navigator initialRouteName={'Home'} tabBar={props => <BottomTabBar {...props} />}>
       <Screen name='Home'>{(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
 </Screen>
       <Screen name='Learn'>{(props) => <LearnPage {...props} user={user} setUser={setUser} lessons={user.lessons} setInLesson={setInLesson} stylingColors={stylingColors}/>}</Screen>
-      <Screen name='Shop' component={ShopPage}/>
+      <Screen name='Shop'>{(props) => <ShopPage {...props} setInGift={setInGift}/>}</Screen>
       <Screen name='Profile' component={ProfilePage}/>
     </Navigator>
   );

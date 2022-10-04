@@ -15,10 +15,12 @@ const LearnPage = ({user, setUser, setInLesson, lessons}) => {
             color: '#FFFFFF'
         },
         header: {
+            fontFamily: 'Nunito',
             marginTop: 20,
             marginLeft: 20
         },
         subheader: {
+            fontFamily: 'Nunito',
             marginTop: 20,
             marginLeft: 20,
             color: '#808080'

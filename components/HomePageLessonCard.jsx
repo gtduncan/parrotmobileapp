@@ -36,14 +36,18 @@ const HomePageLessonCard = ({id, setInLesson, current_stage, lesson_name}) => {
         },
         progressPercent: {
             alignSelf: 'center',
-            marginTop: 10
+            marginTop: 10,
+            fontFamily: 'Nunito'
+        },
+        nameText: {
+            fontFamily: 'Nunito'
         }
     })
     return(
         <Card onPress={()=> console.log('hello')} style={styles.card}>
             <View>
         <Image style={styles.languageFlag} source={require('../assets/spain.png')}/>
-        <Text category="h6">{lesson_name}</Text>
+        <Text style={styles.nameText} category="h6">{lesson_name}</Text>
         <Progress.Bar color={'#3E40BB'} unfilledColor={'#D9DAFB'} style={styles.progressBar} progress={current_stage/10} height={12} width={125} />
         <Text appearance='hint' style={styles.progressPercent} category='s1'>{`${current_stage/10*100}%`}</Text>
         </View>
