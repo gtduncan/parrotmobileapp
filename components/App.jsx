@@ -86,7 +86,7 @@ export default function App({}) {
                 {(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
           </Stack2.Screen>
           <Stack2.Screen name={"Gift"} options={({navigation, route}) => ({ title: `Parrot`, headerLeft: (props) => {return(<HeaderBackButton onPress={() => setInGift('')}/>)}})}>
-              {(props) => <GiftPage {...props} setUser={setUser} inGift={inGift} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}
+              {(props) => <GiftPage {...props} setUser={setUser} setInGift={setInGift} inGift={inGift} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}
           </Stack2.Screen>
           </Stack2.Navigator>
       </NavigationContainer>)

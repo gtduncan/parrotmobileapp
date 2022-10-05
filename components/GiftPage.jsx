@@ -4,7 +4,7 @@ import { View, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} fr
 import Parrots from '../assets/CommonParrots/index.js';
 import axios from 'axios';
 
-const GiftPage = ({inGift}) => {
+const GiftPage = ({setInGift, inGift}) => {
 
     const [opened, setOpened] = useState(false)
     const [openedParrot, setOpenedParrot] = useState('')
@@ -70,6 +70,7 @@ const GiftPage = ({inGift}) => {
             console.log(res.data)
           })
           .catch(e => console.log(e.message))
+        setInGift('')
     }
 
     const whichImage = () => {
@@ -111,7 +112,7 @@ const GiftPage = ({inGift}) => {
           <Text style={styles.congrats} category='h6'>Congratulations!</Text>
           <Input style={styles.inputField} onChangeText={nextValue => { setParrotName(nextValue); console.log(nextValue)}}
             value={parrotName}label='Name your parrot:'></Input>
-          <Button onPress={adoptParrot()}>Adopt</Button>
+          <Button onPress={adoptParrot}>Adopt</Button>
         </Card>
       </Modal>
     </SafeAreaView>
