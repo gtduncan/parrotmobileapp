@@ -69,7 +69,7 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
     }
 
     const checkAnswer = () => {
-        if(userAnswer === currentStageData.answer) {
+        if(userAnswer.toLowerCase().trim() === currentStageData.answer.toLowerCase()) {
             console.log('correct block')
             setIsCorrect(true)
             axios.patch(`https://b0ea-71-190-177-64.ngrok.io/lessons/${inLesson}`, {
