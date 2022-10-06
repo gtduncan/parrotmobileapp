@@ -3,7 +3,6 @@ import { StyleSheet, ScrollView, View, Image, SafeAreaView } from 'react-native'
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Sound from 'react-native-sound'
 import HomePageLessonCard from './HomePageLessonCard'
 import HomePageParrotCard from './HomePageParrotCard'
 import axios from 'axios';
@@ -95,6 +94,7 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
     })
 
   const lessons = user.lessons
+  let returnCount = 0;
 
   return(
     <SafeAreaView>
@@ -120,7 +120,8 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
       </View>
       <View style={styles.lessonContainer}>
         {lessons?.map((lesson) => {
-        if(lesson.current_stage < 10 && lesson.current_stage > 0) {
+        if(lesson.current_stage < 10 && lesson.current_stage > 0 && returnCount<2) {
+          returnCount += 1
           return(<HomePageLessonCard key={lesson.id} setInLesson={setInLesson} id={lesson.id} current_stage={lesson.current_stage} lesson_name={lesson.lesson_name}/>)
         }
       })}

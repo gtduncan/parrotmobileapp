@@ -5,15 +5,31 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SigninPage = ({navigation, stylingColors, signedIn, setSignedIn}) => {
+const SigninPage = ({navigation, stylingColors, loginInfo, user, setUser, signedIn, setSignedIn}) => {
 
     const [checked, setChecked] = useState(false);
-    const [values, setValues] = useState({})
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const signIn = () => {
-        navigation.navigate('Home');
         console.log('clicked')
-        setSignedIn(true); 
+        console.log(user.email)
+        console.log(user.password_digest)
+        for(const user of loginInfo) {
+            if(user.email.toLowerCase() === email.toLowerCase() && user.password_digest === password) {
+                setSignedIn(true)  
+                setUser(user)
+                setEmail('')
+                setPassword('')
+                navigation.navigate('Home');
+                return 0;
+            }
+            else
+            {
+                alert('no user found')
+            }
+        }
     }
 
     const styles = StyleSheet.create({
@@ -50,8 +66,8 @@ const SigninPage = ({navigation, stylingColors, signedIn, setSignedIn}) => {
             <Text style={styles.greetingSub}  category='s1'>Don't have an account? Create one</Text>
         </View>
         <View style={styles.inputContainer}>
-          <Input label='Email' style={styles.fields}placeholder='Email'></Input>
-          <Input label='Password' style={styles.fields}returnKeyType='go' secureTextEntry={true} placeholder='Password'></Input>
+          <Input label='Email' onChangeText={nextValue => { setEmail(nextValue); console.log(nextValue)}} style={styles.fields} placeholder='Email'></Input>
+          <Input label='Password' onChangeText={nextValue => { setPassword(nextValue); console.log(nextValue)}} style={styles.fields}returnKeyType='go' secureTextEntry={true} placeholder='Password'></Input>
            <CheckBox checked={checked} style={styles.fields}onChange={()=> setChecked(!checked)}>Remember Me</CheckBox>
         </View>
         <View style={styles.buttonContainer}>

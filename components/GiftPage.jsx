@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { Button, Input, Card, Icon, Text, Modal} from '@ui-kitten/components';
 import { View, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
-import Sound from 'react-native-sound'
 import Parrots from '../assets/CommonParrots/index.js';
+import Sound from 'react-native-sound'
 import axios from 'axios';
 import complete from '../assets/complete.mp3'
 import drum from '../assets/drumroll.mp3'
 
-Sound.setCategory('Playback');
+
 
 const completeSound = new Sound(complete, error => {
     if (error) {
@@ -152,8 +152,7 @@ const GiftPage = ({setUser, setInGift, inGift}) => {
     <Modal
         visible={visible}
         style={styles.modal}
-        backdropStyle={styles.backdrop}
-        onBackdropPress={() => setVisible(false)}>
+        backdropStyle={styles.backdrop}>
         <Card disabled={true}>
           <Text style={styles.congrats} category='h6'>Congratulations!</Text>
           <Input style={styles.inputField} onChangeText={nextValue => { setParrotName(nextValue); console.log(nextValue)}}

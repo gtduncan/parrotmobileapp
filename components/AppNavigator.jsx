@@ -49,7 +49,7 @@ const AppNavigator = ({setInLesson, setInGift, setUser, user}) => {
       <Screen name='Home'>{(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
 </Screen>
       <Screen name='Learn'>{(props) => <LearnPage {...props} user={user} setUser={setUser} lessons={user.lessons} setInLesson={setInLesson} stylingColors={stylingColors}/>}</Screen>
-      <Screen name='Shop'>{(props) => <ShopPage {...props} user={user} setInGift={setInGift}/>}</Screen>
+      <Screen name='Shop'>{(props) => <ShopPage {...props} setUser={setUser} user={user} setInGift={setInGift}/>}</Screen>
       {/* <Screen name='Profile' component={ProfilePage}/> */}
     </Navigator>
   );

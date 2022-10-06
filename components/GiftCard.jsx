@@ -2,8 +2,28 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
+import Sound from 'react-native-sound';
+import axios from 'axios';
+import incorrect from '../assets/incorrect.mp3'
 
-const GiftCard = ({user, setInGift, rarity}) => {
+
+Sound.setCategory('Playback');
+
+const incorrectSound = new Sound(incorrect, error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        incorrectSound.getDuration() +
+        'number of channels: ' +
+        incorrectSound.getNumberOfChannels(),
+    );
+  });
+
+const GiftCard = ({user, setUser, setInGift, rarity}) => {
 
     const styles = StyleSheet.create({
         card: {
@@ -32,13 +52,20 @@ const GiftCard = ({user, setInGift, rarity}) => {
         })
     
         const setGift = () => {
-            // if(user.points >= 50) {
+            if(user.points >= 50) {
                 setInGift(rarity)
-            // }
-            // else
-            // {
-            //     alert("You don't have enough coins!")
-            // }
+                axios.patch(`https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/users/1`, {
+                    points: user.points - 50
+                }).then(res => {
+                    console.log(res.data)
+                    setUser(res.data)
+                  })
+                  .catch(e => console.log(e.message))
+            }
+            else
+            {
+                incorrectSound.play()
+            }
         }
 
     const Footer = (props) => {

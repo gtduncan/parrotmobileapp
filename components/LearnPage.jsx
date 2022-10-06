@@ -2,12 +2,15 @@ import React, {useState, useEffect} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
+import Sound from 'react-native-sound'
 import { StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import LessonCard from './LessonCard';
+import incorrect from '../assets/incorrect.mp3'
 import axios from 'axios';
 
-const LearnPage = ({user, setUser, setInLesson, lessons}) => {
 
+
+const LearnPage = ({user, setUser, setInLesson, lessons}) => {
 
       const styles = StyleSheet.create({
         container: {

@@ -22,6 +22,7 @@ const Stack2 = createNativeStackNavigator();
 
 export default function App({}) {
   const [signedIn, setSignedIn] = useState(false)
+  const [loginInfo, setLoginInfo] = useState([])
   const [user, setUser] = useState({})
   const [inLesson, setInLesson] = useState('')
   const [inGift, setInGift] = useState('')
@@ -33,6 +34,11 @@ export default function App({}) {
         setUser(res.data)
       })
       .catch(e => console.log(e.message))
+    axios.get('https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/users')
+    .then(res2 => {
+      console.log(res2.data)
+      setLoginInfo(res2.data)
+    }) .catch(e => console.log(e.message))
   }, [inLesson])
 
   const stylingColors = {
@@ -52,7 +58,7 @@ export default function App({}) {
                 {(props) => <LandingPage {...props} stylingColors={stylingColors}/>}
                 </Stack1.Screen>
                 <Stack1.Screen name="Sign-in">
-                {(props) => <SigninPage {...props} setSignedIn={setSignedIn} stylingColors={stylingColors}/>}
+                {(props) => <SigninPage {...props} loginInfo={loginInfo} user={user} setUser={setUser} setSignedIn={setSignedIn} stylingColors={stylingColors}/>}
                 </Stack1.Screen>
                 <Stack1.Screen name="Home">
                 {(props) => <HomePage {...props} user={user} setInLesson={setInLesson} stylingColors={stylingColors}/>}
@@ -73,7 +79,7 @@ export default function App({}) {
                 {(props) => <HomePage {...props} setInLesson={setInLesson} user={user} stylingColors={stylingColors}/>}
           </Stack2.Screen>
           <Stack2.Screen name={"Lesson"} options={({navigation, route}) => ({ title: `Lesson ${inLesson}`, headerLeft: (props) => {return(<HeaderBackButton onPress={() => setInLesson('')}/>)}})}>
-              {(props) => <LessonPage {...props} setUser={setUser} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}
+              {(props) => <LessonPage {...props} setInLesson={setInLesson} setUser={setUser} inLesson={inLesson} user={user} stylingColors={stylingColors}/>}
           </Stack2.Screen>
           </Stack2.Navigator>
       </NavigationContainer>)

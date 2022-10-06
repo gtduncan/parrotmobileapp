@@ -54,7 +54,7 @@ const incorrectSound = new Sound(incorrect, error => {
     );
   });
 
-const LessonPage = ({user, setUser, navigation, inLesson}) => {
+const LessonPage = ({user, setUser, navigation, setInLesson, inLesson}) => {
 
     const [visible, setVisible] = useState(false);
     const [lessonData, setLessonData] = useState({})
@@ -69,7 +69,7 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
     }
 
     const checkAnswer = () => {
-        if(userAnswer.toLowerCase().trim() === currentStageData.answer.toLowerCase()) {
+        if(userAnswer?.toLowerCase().trim() === currentStageData?.answer?.toLowerCase()) {
             console.log('correct block')
             setIsCorrect(true)
             axios.patch(`https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/lessons/${inLesson}`, {
@@ -93,7 +93,6 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
                     setUser(res.data)
                   })
                   .catch(e => console.log(e.message))
-                alert('completed lesson')
             }
         }
         else {

@@ -1,7 +1,25 @@
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
+import Sound from 'react-native-sound'
 import * as Progress from 'react-native-progress'
+import incorrect from '../assets/incorrect.mp3'
+
+Sound.setCategory('Playback');
+
+const incorrectSound = new Sound(incorrect, error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        incorrectSound.getDuration() +
+        'number of channels: ' +
+        incorrectSound.getNumberOfChannels(),
+    );
+  });
 
 const LessonCard = ({id, lesson_name, setInLesson, lesson_description, item, language, current_stage}) => {
 
@@ -58,7 +76,7 @@ const LessonCard = ({id, lesson_name, setInLesson, lesson_description, item, lan
         }
         else
         {
-            alert('Already completed')
+            incorrectSound.play()
         }
     }
 
