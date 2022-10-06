@@ -27,7 +27,7 @@ export default function App({}) {
   const [inGift, setInGift] = useState('')
 
   useEffect(()=>{
-    axios.get('https://b0ea-71-190-177-64.ngrok.io/users/1')
+    axios.get('https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/users/1')
       .then(res => {
         console.log(res.data)
         setUser(res.data)

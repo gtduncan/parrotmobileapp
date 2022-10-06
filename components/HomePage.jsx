@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, ScrollView, View, Image, SafeAreaView } from 'react-native';
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Sound from 'react-native-sound'
 import HomePageLessonCard from './HomePageLessonCard'
+import HomePageParrotCard from './HomePageParrotCard'
 import axios from 'axios';
 
 const HomePage = ({setInLesson, user, navigation, route}) => {
+
+    const [parrots, setParrots] = useState(user.parrots)
   
     const styles = StyleSheet.create({
       header: {
@@ -20,6 +24,8 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
           flex: 1,
           flexDirection: 'row'
         },
+        parrotContainer: {
+            flexGrow: 1        },
         profilePictureContainer: {
           flexDirection: 'row',
           flex: 5,
@@ -83,7 +89,7 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
         },
         shopText: {
           fontFamily: 'Nunito',
-          marginTop: 170,
+          marginTop: 20,
           marginLeft: 20
         }
     })
@@ -92,6 +98,7 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
 
   return(
     <SafeAreaView>
+      <ScrollView>
       <Text style={styles.header} category='h3'>Home</Text>
       <View style={styles.welcomeContainer}>
       <Card style={styles.welcomeCard}> 
@@ -121,6 +128,12 @@ const HomePage = ({setInLesson, user, navigation, route}) => {
       <View>
         <Text category='s1' style={styles.shopText} appearance='hint'>Your Parrots</Text>
       </View>
+      <View style={styles.parrotContainer}>
+        {parrots?.map((parrot) => {
+          return(<HomePageParrotCard key={parrot.id} parrot={parrot}/>)
+        })}
+      </View>
+      </ScrollView>
     </SafeAreaView>
   )
   }

@@ -1,10 +1,43 @@
 import React, {useState, useEffect} from 'react'
 import { Button, Input, Card, Icon, Text, Modal} from '@ui-kitten/components';
 import { View, Image, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import Sound from 'react-native-sound'
 import Parrots from '../assets/CommonParrots/index.js';
 import axios from 'axios';
+import complete from '../assets/complete.mp3'
+import drum from '../assets/drumroll.mp3'
 
-const GiftPage = ({setInGift, inGift}) => {
+Sound.setCategory('Playback');
+
+const completeSound = new Sound(complete, error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        completeSound.getDuration() +
+        'number of channels: ' +
+        completeSound.getNumberOfChannels(),
+    );
+  });
+
+  const drumSound = new Sound(drum, error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        drumSound.getDuration() +
+        'number of channels: ' +
+        drumSound.getNumberOfChannels(),
+    );
+  });
+
+const GiftPage = ({setUser, setInGift, inGift}) => {
 
     const [opened, setOpened] = useState(false)
     const [openedParrot, setOpenedParrot] = useState('')
@@ -21,6 +54,7 @@ const GiftPage = ({setInGift, inGift}) => {
           alignSelf:'center'
         },
         text: {
+            fontFamily: 'Nunito',
             marginTop: 50,
             alignSelf: 'center'
         },
@@ -39,7 +73,11 @@ const GiftPage = ({setInGift, inGift}) => {
         inputField: {
             marginTop: 20,
             marginBottom: 20
-        }})
+        },
+        congrats: {
+            fontFamily: 'Nunito'
+        }
+        })
     
     const getRandomParrot = () => {
             if(openedParrot === '')
@@ -52,25 +90,33 @@ const GiftPage = ({setInGift, inGift}) => {
 
     const handleOpen = () => {
         getRandomParrot()
+        drumSound.play()
         setTimeout(() => {
             setOpened(true)
-        }, 1500)
+            completeSound.play()
+        }, 2000)
         setTimeout(() => {
             setVisible(true)
-        }, 2500)
+        }, 4500)
     }
 
     const adoptParrot = () => {
-        axios.post(`https://b0ea-71-190-177-64.ngrok.io/parrots/`, {
+        axios.post(`https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/parrots/`, {
             user_id: 1,
-            name: parrotName,
+            name: parrotName.trim(),
             img_src: openedParrot.name,
             rarity: inGift
         }).then(res => {
             console.log(res.data)
+            axios.get('https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/users/1')
+                .then(res2 => {
+            console.log(res2.data)
+            setUser(res2.data)
+                }).catch(e=> console.log(e.message));
+                setInGift('')
           })
           .catch(e => console.log(e.message))
-        setInGift('')
+        
     }
 
     const whichImage = () => {

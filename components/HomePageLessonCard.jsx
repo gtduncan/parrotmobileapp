@@ -20,6 +20,7 @@ const HomePageLessonCard = ({id, setInLesson, current_stage, lesson_name}) => {
     const styles = StyleSheet.create({
         card: {
             height: 150,
+            maxWidth: 178,
             flex: 1,
             marginLeft: 15,
             marginRight: 15,
@@ -44,7 +45,7 @@ const HomePageLessonCard = ({id, setInLesson, current_stage, lesson_name}) => {
         }
     })
     return(
-        <Card onPress={()=> console.log('hello')} style={styles.card}>
+        <Card onPress={()=> setLesson()} style={styles.card}>
             <View>
         <Image style={styles.languageFlag} source={require('../assets/spain.png')}/>
         <Text style={styles.nameText} category="h6">{lesson_name}</Text>

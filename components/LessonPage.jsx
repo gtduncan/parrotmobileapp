@@ -72,7 +72,7 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
         if(userAnswer.toLowerCase().trim() === currentStageData.answer.toLowerCase()) {
             console.log('correct block')
             setIsCorrect(true)
-            axios.patch(`https://b0ea-71-190-177-64.ngrok.io/lessons/${inLesson}`, {
+            axios.patch(`https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/lessons/${inLesson}`, {
                 current_stage: currentStage+1
             }).then(res => {
                 console.log(res.data)
@@ -86,7 +86,7 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
             else{
                 console.log('Points:' + user.points)
                 completeSound.play()
-                axios.patch(`https://b0ea-71-190-177-64.ngrok.io/users/1`, {
+                axios.patch(`https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/users/1`, {
                     points: user.points + 10
                 }).then(res => {
                     console.log(res.data)
@@ -197,7 +197,7 @@ const LessonPage = ({user, setUser, navigation, inLesson}) => {
       );
 
     useEffect(()=>{
-        axios.get(`https://b0ea-71-190-177-64.ngrok.io/lessons/${inLesson}`)
+        axios.get(`https://5b7c-2603-7000-483f-b6f4-7134-1076-81cd-4c04.ngrok.io/lessons/${inLesson}`)
           .then(res => {
             console.log(res.data)
             const data = res.data

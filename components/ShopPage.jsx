@@ -4,7 +4,7 @@ import { Button, Card, Icon, Text } from '@ui-kitten/components';
 import { StyleSheet, View, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import GiftCard from './GiftCard';
 
-const ShopPage = ({setInGift}) => {
+const ShopPage = ({user, setInGift}) => {
 
     const styles = StyleSheet.create({
         container: {
@@ -53,8 +53,8 @@ return(
     <Text category='h6' appearance='hint' style={styles.purchaseText}>Open a box to collect parrots!</Text>
     <Text style={styles.subheader} category='h6'>Buy</Text>
     <View style={styles.giftContainer}>
-    <GiftCard setInGift={setInGift} rarity={'Common'}/>
-    <GiftCard setInGift={setInGift} rarity={'Rare'}/>
+    <GiftCard user={user} setInGift={setInGift} rarity={'Common'}/>
+    <GiftCard user={user} setInGift={setInGift} rarity={'Rare'}/>
     </View>
     </SafeAreaView>
 )

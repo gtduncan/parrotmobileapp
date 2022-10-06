@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import { StyleSheet, View, Image, SafeAreaView } from 'react-native';
 import { Button, Card, Icon, Text } from '@ui-kitten/components';
 
-const GiftCard = ({setInGift, rarity}) => {
+const GiftCard = ({user, setInGift, rarity}) => {
 
     const styles = StyleSheet.create({
         card: {
@@ -32,15 +32,33 @@ const GiftCard = ({setInGift, rarity}) => {
         })
     
         const setGift = () => {
-            setInGift(rarity)
+            // if(user.points >= 50) {
+                setInGift(rarity)
+            // }
+            // else
+            // {
+            //     alert("You don't have enough coins!")
+            // }
         }
 
-    const Footer = (props) => (
+    const Footer = (props) => {
+        const whichCost = () => {
+            if(rarity==='Common') {
+                return(
+                <Text category='s1' appearance='hint'>50</Text>)
+                }
+            if(rarity==='Rare') {
+                    return(
+                    <Text category='s1' appearance='hint'>100</Text>)
+        }
+        }
+        
+        return (
             <View {...props} style={[props.style, styles.footerContainer]}>
                 <Image style={styles.pointImage} source={require('../assets/dollar.png')}/>
-                <Text category='s1' appearance='hint'>50</Text>
+                {whichCost()}
             </View>
-          );
+          )}
     
           const Header = (props) => (
             <View {...props} style={[props.style, styles.footerContainer]}>
